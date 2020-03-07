@@ -120,7 +120,16 @@ void prepValues(char elementType)
             break;
     }
 }
-
+void putElementInGameTable(char elementType, int elementValue)
+{
+    for (int i = 0; i < elementValue; i++)
+    {
+        int r =elementPlaces[i]/10;
+        int c =elementPlaces[i]%10;
+        gameTable[r][c] = elementType;
+    }
+    
+}
 void start()
 {
     prepTables();
@@ -134,10 +143,16 @@ void start()
         char c;
         while(1)
         {
+            copyTable();
             prepValues(elementType);
             placeProp(elementType, elementValue);
             printTable();
             c = getUserInput();
+            if(c == '\n')
+            {
+                putElementInGameTable(elementType, elementValue);
+                break;
+            }
             switch (c)
             {
                 case 'w':
@@ -153,14 +168,9 @@ void start()
                     col++;
                     break;
             }
-            if(c == '\n')
-            {
-                // Put element to game table.
-                break;
-            }
-            copyTable();
         }
     }
+    printTable();
 }
 
 
